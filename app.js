@@ -1,17 +1,19 @@
 /*
  * app.js
  *
- * Main file for the game.
+ * Main file for autoRunner game.
  *
  * @author mogab9
  */
 
-var jsApp =
-{
-    onload: function()
-    {
-        if (!me.video.init('jsapp', 640, 480, false, 1.0))
-        {
+var jsApp = {
+
+    width:  640,
+    height: 480,
+    score : 0,
+
+    onload: function() {
+        if (!me.video.init('jsapp', this.width, this.height, false, 1.0)) {
             alert("Sorry but your browser does not support html 5 canvas.");
             return;
         }
@@ -24,8 +26,7 @@ var jsApp =
         me.state.change( me.state.LOADING );
     },
 
-    loaded: function()
-    {
+    loaded: function() {
        me.state.set(me.state.MENU, new TitleScreen());
        me.state.set(me.state.PLAY, new PlayScreen());
 
@@ -46,54 +47,30 @@ var jsApp =
 };
 
 /* in game stuff */
-var PlayScreen = me.ScreenObject.extend(
-{
+var PlayScreen = me.ScreenObject.extend({
 
-   onResetEvent: function()
-    {   
-      // stuff to reset on state change
-      // load a level
+   onResetEvent: function() {
+      jsApp.score = 0;
+
       me.levelDirector.loadLevel("area01");
 
       me.game.addHUD(0, 430, 640, 60);
-
       me.game.HUD.addItem("score", new ScoreObject(620, 10));
-
       me.game.sort();
     },
     
-    /* ---
-    
-         action to perform when game is finished (state change)
-        
-        --- */
-    onDestroyEvent: function()
-    {
+    onDestroyEvent: function() {
       me.game.disableHUD();
     }
 
 });
 
  
-var TitleScreen = me.ScreenObject.extend(
-{
-    // constructor
+var TitleScreen = me.ScreenObject.extend({
     init: function() {
         this.parent(true);
- 
-        // title screen image
-        this.title = null;
- 
-        this.font = null;
-        this.scrollerfont = null;
-        this.scrollertween = null;
- 
-        this.scroller = "A SMALL STEP BY STEP TUTORIAL FOR GAME CREATION WITH MELONJS       ";
-        this.scrollerpos = 600;
-
     },
  
-    // reset function
     onResetEvent: function() {
         if (this.title == null) {
             // init stuff if not yet done
@@ -101,11 +78,6 @@ var TitleScreen = me.ScreenObject.extend(
             // font to display the menu items
             this.font = new me.BitmapFont("32x32_font", 32);
             this.font.set("left");
- 
-            // set the scroller
-            this.scrollerfont = new me.BitmapFont("32x32_font", 32);
-            this.scrollerfont.set("left");
- 
         }
  
         // enable the keyboard
@@ -113,7 +85,6 @@ var TitleScreen = me.ScreenObject.extend(
  
     },
  
-    // update function
     update: function() {
         // enter pressed ?
         if (me.input.isKeyPressed('enter')) {
@@ -122,21 +93,23 @@ var TitleScreen = me.ScreenObject.extend(
         return true;
     },
  
-    // draw function
     draw: function(context) {
         context.drawImage(this.title, 0, 0);
  
         this.font.draw(context, "PRESS ENTER TO PLAY", 20, 240);
+        
+        if (jsApp.score > 0) {
+          this.font.draw(context, "LAST SCORE:", 155, 300);
+          this.font.draw(context, jsApp.score, 260, 345);
+        }
     },
  
-    // destroy function
     onDestroyEvent: function() {
         me.input.unbindKey(me.input.KEY.ENTER);
     }
  
 });
 
-window.onReady( function()
-{
+window.onReady( function() {
     jsApp.onload();
 });

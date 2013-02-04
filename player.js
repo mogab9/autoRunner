@@ -1,13 +1,5 @@
-var PlayerEntity = me.ObjectEntity.extend({
- 
-    /* -----
- 
-    constructor
- 
-    ------ */
- 
+var PlayerEntity = me.ObjectEntity.extend({ 
     init: function(x, y, settings) {
-        // call the constructor
         this.parent(x, y, settings);
  
         // set the default horizontal & vertical speed (accel vector)
@@ -20,19 +12,23 @@ var PlayerEntity = me.ObjectEntity.extend({
         me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
     },
  
-    /* -----
-    update the player pos
-    ------ */
+
+    // update the player pos
     update: function() {
-     
+        // player dead by falling below the game height
+        if (this.pos.y > jsApp.height)
+        {
+            me.state.change(me.state.MENU);
+            return false;
+        }
+
         this.vel.x += this.accel.x * me.timer.tick;
 
-        me.game.HUD.setItemValue("score", Math.floor(this.pos.x));
+        jsApp.score = Math.floor(this.pos.x);
+        me.game.HUD.setItemValue("score", jsApp.score);
 
-        if (me.input.isKeyPressed('jump'))
-        {  
-            if (!this.jumping && !this.falling)
-            {
+        if (me.input.isKeyPressed('jump')) {  
+            if (!this.jumping && !this.falling) {
                 // set current vel to the maximum defined value
                 // gravity will then do the rest
                 this.vel.y = -this.maxVel.y * me.timer.tick;
@@ -41,8 +37,6 @@ var PlayerEntity = me.ObjectEntity.extend({
             }
         }
      
-     
-        // check & update player movement
         this.updateMovement();
      
         // check for collision
