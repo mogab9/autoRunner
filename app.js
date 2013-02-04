@@ -54,8 +54,13 @@ var PlayScreen = me.ScreenObject.extend(
       // stuff to reset on state change
       // load a level
       me.levelDirector.loadLevel("area01");
+
+      me.game.addHUD(0, 430, 640, 60);
+
+      me.game.HUD.addItem("score", new ScoreObject(620, 10));
+
+      me.game.sort();
     },
-    
     
     /* ---
     
@@ -64,7 +69,7 @@ var PlayScreen = me.ScreenObject.extend(
         --- */
     onDestroyEvent: function()
     {
-    
+      me.game.disableHUD();
     }
 
 });

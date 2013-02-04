@@ -18,7 +18,6 @@ var PlayerEntity = me.ObjectEntity.extend({
  
         // set the display to follow our position on both axis
         me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
- 
     },
  
     /* -----
@@ -27,6 +26,8 @@ var PlayerEntity = me.ObjectEntity.extend({
     update: function() {
      
         this.vel.x += this.accel.x * me.timer.tick;
+
+        me.game.HUD.setItemValue("score", Math.floor(this.pos.x));
 
         if (me.input.isKeyPressed('jump'))
         {  
