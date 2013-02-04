@@ -1,23 +1,27 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>melonJS - Tutorial</title>
 		<meta charset="UTF-8" />
+		<title>melonJS - Tutorial</title>
+		<link href="style.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="lib/melonJS-0.9.4-min.js"></script>
+        <script type="text/javascript" src="app.js"></script>
+        <script type="text/javascript" src="enemy.js"></script>
+        <script type="text/javascript" src="envEntities.js"></script>
+        <script type="text/javascript" src="gameResources.js"></script>
+        <script type="text/javascript" src="hud.js"></script>
+        <script type="text/javascript" src="player.js"></script>
 	</head>
 	<body>
-		<div id="info" style="width: 640px;">
-			<div id="jsapp">
-				<script type="text/javascript" src="lib/melonJS-0.9.4-min.js"></script>
-	            <script type="text/javascript" src="app.js"></script>
-	            <script type="text/javascript" src="enemy.js"></script>
-	            <script type="text/javascript" src="envEntities.js"></script>
-	            <script type="text/javascript" src="gameResources.js"></script>
-	            <script type="text/javascript" src="hud.js"></script>
-	            <script type="text/javascript" src="player.js"></script>
+		<div class="game">
+			<div id="jsapp"></div>
+			<div id="infos">
+	            <span id="framecounter">(0/0 fps)</span>
+	            <span class="roundBox">
+		            <span>Controls:</span>
+		            <span>Press X to Jump</span>
+	        	</span>
 			</div>
-			<div id="fps" style="text-align:center;">
-            	<span id="framecounter">(0/0 fps)</span>
-        	</div>
 		</div>
 	</body>
 </html>

@@ -1,0 +1,25 @@
+body {
+	background-color: #333;
+	color: #bbb;
+}
+
+.game {
+	position: relative;
+	margin: 0 auto;
+	width: 640px;
+}
+.roundBox {
+	background-color: #999;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-o-border-radius: 10px;
+	-ms-border-radius: 10px;
+	border-radius: 10px;
+	width: 250px;
+	margin: 0 auto;
+	color: #000;
+}
+
+#infos { text-align: center; }
+#infos span { display: block; }
+#framecounter { margin-bottom: 5px; }
