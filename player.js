@@ -1,4 +1,7 @@
-var PlayerEntity = me.ObjectEntity.extend({ 
+var PlayerEntity = me.ObjectEntity.extend({
+    
+    initialPosX: 0,
+
     init: function(x, y, settings) {
         this.parent(x, y, settings);
  
@@ -10,6 +13,8 @@ var PlayerEntity = me.ObjectEntity.extend({
  
         // set the display to follow our position on both axis
         me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
+
+        this.initialPosX = Math.floor(this.pos.x);
     },
  
 
@@ -24,9 +29,11 @@ var PlayerEntity = me.ObjectEntity.extend({
 
         this.vel.x += this.accel.x * me.timer.tick;
 
-        jsApp.score = Math.floor(this.pos.x);
+        // update score
+        jsApp.score = Math.floor(this.pos.x) - this.initialPosX;
         me.game.HUD.setItemValue("score", jsApp.score);
 
+        // jump listener
         if (me.input.isKeyPressed('jump')) {  
             if (!this.jumping && !this.falling) {
                 // set current vel to the maximum defined value
