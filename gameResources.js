@@ -33,4 +33,14 @@ var gameResources = [
     name: "wheelie_right",
     type: "image",
     src: "data/sprite/wheelie_right.png"
+},
+{
+    name: "title_screen",
+    type: "image",
+    src: "data/GUI/title_screen.png"
+},
+{
+    name: "32x32_font",
+    type: "image",
+    src: "data/sprite/32x32_font.png"
 }];
