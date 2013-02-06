@@ -1,28 +1,28 @@
 var gameResources = [
 {
-	name: "metatiles32x32",
+	name: "metatiles16x16",
     type: "image",
-    src:  "data/area01_tileset/metatiles32x32.png"
+    src:  "data/area00_tileset/metatiles16x16.png"
 }, {
-    name: "area01_level_tiles",
+    name: "area00_level_tiles_16x16",
     type: "image",
-    src: "data/area01_tileset/area01_level_tiles.png"
+    src: "data/area00_tileset/area00_level_tiles_16x16.png"
 }, {
-    name: "area01",
+    name: "area00",
     type: "tmx",
-    src: "data/area01.tmx"
+    src: "data/area00.tmx"
 }, {
     name: "gripe_run_right",
     type: "image",
     src: "data/sprite/gripe_run_right.png"
 }, {
-    name: "area01_bkg0",
+    name: "area00_bkg0",
     type: "image",
-    src: "data/area01_parallax/area01_bkg0.png"
+    src: "data/area00_parallax/area00_bkg0.png"
 }, {
-    name: "area01_bkg1",
+    name: "area00_bkg1",
     type: "image",
-    src: "data/area01_parallax/area01_bkg1.png"
+    src: "data/area00_parallax/area00_bkg1.png"
 },
 {
     name: "spinning_coin_gold",

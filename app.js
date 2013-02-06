@@ -10,7 +10,8 @@ var jsApp = {
 
     width:  640,
     height: 480,
-    score : 0,
+    score:  0,
+    debug:  true,
 
     onload: function() {
         if (!me.video.init('jsapp', this.width, this.height, false, 1.0)) {
@@ -52,7 +53,7 @@ var PlayScreen = me.ScreenObject.extend({
    onResetEvent: function() {
       jsApp.score = 0;
 
-      me.levelDirector.loadLevel("area01");
+      me.levelDirector.loadLevel("area00");
 
       me.game.addHUD(0, 430, 640, 60);
       me.game.HUD.addItem("score", new ScoreObject(620, 10));

@@ -4,12 +4,15 @@ var PlayerEntity = me.ObjectEntity.extend({
 
     init: function(x, y, settings) {
         this.parent(x, y, settings);
+
+        if (jsApp.debug)
+            me.debug.renderHitBox = true;
  
         // set the default horizontal & vertical speed (accel vector)
         this.setVelocity(4.5, 15);
 
         // adjust the bounding box
-        this.updateColRect(8, 50, 8, 50);
+        this.updateColRect(5, 25, -1, 32);
  
         // set the display to follow our position on both axis
         me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
