@@ -11,7 +11,7 @@ var jsApp = {
     width:  640,
     height: 480,
     score:  0,
-    debug:  true,
+    debug:  false,
 
     onload: function() {
         if (!me.video.init('jsapp', this.width, this.height, false, 1.0)) {
