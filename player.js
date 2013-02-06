@@ -24,13 +24,24 @@ var PlayerEntity = me.ObjectEntity.extend({
     // update the player pos
     update: function() {
         // player dead by falling below the game height
-        if (this.pos.y > jsApp.height)
-        {
+        if (this.pos.y > jsApp.height) {
             me.state.change(me.state.MENU);
             return false;
         }
 
-        this.vel.x += this.accel.x * me.timer.tick;
+        if (me.input.isKeyPressed('left')) {
+            // flip the sprite on horizontal axis
+            this.flipX(true);
+            // update the entity velocity
+            this.vel.x -= this.accel.x * me.timer.tick;
+        } else if (me.input.isKeyPressed('right')) {
+            // unflip the sprite
+            this.flipX(false);
+            // update the entity velocity
+            this.vel.x += this.accel.x * me.timer.tick;
+        } else {
+            this.vel.x = 0;
+        }
 
         // update score
         jsApp.score = Math.floor(this.pos.x) - this.initialPosX;

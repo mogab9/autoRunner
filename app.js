@@ -41,6 +41,8 @@ var jsApp = {
        
        // enable the keyboard
        me.input.bindKey(me.input.KEY.X, "jump", true);
+       me.input.bindKey(me.input.KEY.LEFT,  "left");
+       me.input.bindKey(me.input.KEY.RIGHT, "right");
           
        // start the game
        me.state.change(me.state.MENU);
