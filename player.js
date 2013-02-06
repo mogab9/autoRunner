@@ -44,8 +44,11 @@ var PlayerEntity = me.ObjectEntity.extend({
         }
 
         // update score
-        jsApp.score = Math.floor(this.pos.x) - this.initialPosX;
-        me.game.HUD.setItemValue("score", jsApp.score);
+        var newScore = Math.floor(this.pos.x) - this.initialPosX;
+        if (jsApp.score < newScore) {
+            jsApp.score = newScore;
+            me.game.HUD.setItemValue("score", jsApp.score);
+        }
 
         // jump listener
         if (me.input.isKeyPressed('jump')) {  
