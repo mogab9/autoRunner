@@ -4,8 +4,10 @@ var PlayerEntity = me.ObjectEntity.extend({
 
   initialPosX: 0,
   defaultVelX: 3,
-  maxVelX: 5.5,
-  inertia: 0.1,
+  defaultGrav: 0.98,
+  maxVelX:     5.5,
+  maxVelY:     8.6,
+  inertia:     0.1,
 
   init: function (x, y, settings) {
     this.parent(x, y, settings);
@@ -66,11 +68,10 @@ var PlayerEntity = me.ObjectEntity.extend({
 
     // jump listener
     if (me.input.isKeyPressed('jump')) {
-      if (!this.jumping && !this.falling) {
+      if (!this.jumping && !this.falling && this.vel.y >= 0) {
         // set current vel to the maximum defined value
         // gravity will then do the rest
         this.vel.y = -this.maxVel.y * me.timer.tick;
-        // set the jumping flag
         this.jumping = true;
       }
     }
