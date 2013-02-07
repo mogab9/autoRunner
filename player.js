@@ -3,8 +3,9 @@
 var PlayerEntity = me.ObjectEntity.extend({
 
   initialPosX: 0,
-  defaultVelX: 4,
-  maxInertiaX: 6,
+  defaultVelX: 3,
+  maxVelX: 5.5,
+  inertia: 0.1,
 
   init: function (x, y, settings) {
     this.parent(x, y, settings);
@@ -34,7 +35,7 @@ var PlayerEntity = me.ObjectEntity.extend({
 
     // keyboard inputs
     if (me.input.isKeyPressed('left') || me.input.isKeyPressed('right')) {
-      if (this.maxVel.x < this.maxInertiaX) {
+      if (this.maxVel.x < this.maxVelX) {
         this.maxVel.x += 0.1;
       }
       if (me.input.isKeyPressed('left')) {
@@ -47,9 +48,9 @@ var PlayerEntity = me.ObjectEntity.extend({
     } else {
       // stopping player by taking into account player's inertia
       this.maxVel.x = this.defaultVelX;
-      if (this.vel.x > 0.5) {
+      if (this.vel.x > this.inertia) {
         this.vel.x -= 0.2;
-      } else if (this.vel.x < -0.5) {
+      } else if (this.vel.x < -this.inertia) {
         this.vel.x += 0.2;
       } else {
         this.vel.x = 0;
