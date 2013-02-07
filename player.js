@@ -1,7 +1,10 @@
 /*global me, jsApp*/
 
 var PlayerEntity = me.ObjectEntity.extend({
+
   initialPosX: 0,
+  defaultVelX: 4,
+  maxInertiaX: 6,
 
   init: function (x, y, settings) {
     this.parent(x, y, settings);
@@ -10,7 +13,7 @@ var PlayerEntity = me.ObjectEntity.extend({
       me.debug.renderHitBox = true;
     }
     // set the default horizontal & vertical speed (accel vector)
-    this.setVelocity(4.5, 15);
+    this.setVelocity(this.defaultVelX, 10);
 
     // adjust the bounding box
     this.updateColRect(5, 25, -1, 32);
@@ -29,18 +32,21 @@ var PlayerEntity = me.ObjectEntity.extend({
       return false;
     }
 
-    if (me.input.isKeyPressed('left')) {
-      // flip the sprite on horizontal axis
-      this.flipX(true);
-      // update the entity velocity
-      this.vel.x -= this.accel.x * me.timer.tick;
-    } else if (me.input.isKeyPressed('right')) {
-      // unflip the sprite
-      this.flipX(false);
-      // update the entity velocity
-      this.vel.x += this.accel.x * me.timer.tick;
+    // keyboard inputs
+    if (me.input.isKeyPressed('left') || me.input.isKeyPressed('right')) {
+      if (this.maxVel.x < this.maxInertiaX) {
+        this.maxVel.x += 0.1;
+      }
+      if (me.input.isKeyPressed('left')) {
+        this.flipX(true);
+        this.vel.x -= this.accel.x * me.timer.tick;
+      } else if (me.input.isKeyPressed('right')) {
+        this.flipX(false);
+        this.vel.x += this.accel.x * me.timer.tick;
+      }
     } else {
-      this.vel.x = 0;
+      this.maxVel.x = this.defaultVelX;
+      this.vel.x    = 0;
     }
 
     // update score
