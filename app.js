@@ -6,7 +6,7 @@
  * @author mogab9
 */
 
-/*global me, alert, window, gameResources, TitleScreen, PlayScreen, ScoreObject, PlayerEntity, CoinEntity, EnemyEntity*/
+/*global me, alert, window, gameResources, TitleScreen, PlayScreen, ScoreObject, PlayerEntity, CoinEntity, EnemyEntity, SpringboardEntity*/
 
 var jsApp = {
 
@@ -39,6 +39,7 @@ var jsApp = {
       me.entityPool.add("mainPlayer",  PlayerEntity);
       me.entityPool.add("CoinEntity",  CoinEntity);
       me.entityPool.add("EnemyEntity", EnemyEntity);
+      me.entityPool.add("springBoard", SpringboardEntity);
 
       // enable the keyboard
       me.input.bindKey(me.input.KEY.X,     "jump", true);

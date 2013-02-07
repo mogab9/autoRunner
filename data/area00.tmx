@@ -64,6 +64,12 @@
     <property name="spritewidth" value="32"/>
    </properties>
   </object>
+  <object name="springBoard" x="607" y="187" width="16" height="16">
+   <properties>
+    <property name="image" value="gripe_run_right"/>
+    <property name="spritewidth" value="32"/>
+   </properties>
+  </object>
  </objectgroup>
  <layer name="collision" width="200" height="30">
   <data encoding="base64">
