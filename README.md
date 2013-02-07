@@ -1,6 +1,8 @@
 autoRunner
 ==========
 
+/!\ Work in progress. /!\ 
+
 An html5 autoRunner game using melonJS.
 
 In development, from the great step by step melonJs game creation tutorial: http://www.melonjs.org/tutorial/index.html
