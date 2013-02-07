@@ -45,8 +45,15 @@ var PlayerEntity = me.ObjectEntity.extend({
         this.vel.x += this.accel.x * me.timer.tick;
       }
     } else {
+      // stopping player by taking into account player's inertia
       this.maxVel.x = this.defaultVelX;
-      this.vel.x    = 0;
+      if (this.vel.x > 0.5) {
+        this.vel.x -= 0.2;
+      } else if (this.vel.x < -0.5) {
+        this.vel.x += 0.2;
+      } else {
+        this.vel.x = 0;
+      }
     }
 
     // update score
