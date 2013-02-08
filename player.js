@@ -37,19 +37,20 @@ var PlayerEntity = me.ObjectEntity.extend({
 
     // keyboard inputs
     if (me.input.isKeyPressed('left') || me.input.isKeyPressed('right')) {
-      if (this.maxVel.x < this.maxVelX) {
-        this.maxVel.x += 0.1;
-      }
       if (me.input.isKeyPressed('left')) {
         this.flipX(true);
         this.vel.x -= this.accel.x * me.timer.tick;
+
       } else if (me.input.isKeyPressed('right')) {
+        if (this.maxVel.x < this.maxVelX) {
+          this.maxVel.x += 0.1;
+        }
         this.flipX(false);
         this.vel.x += this.accel.x * me.timer.tick;
       }
     } else {
-      // stopping player by taking into account player's inertia
       this.vel.x += this.accel.x * me.timer.tick;
+      // stopping player by taking into account player's inertia
       this.maxVel.x = this.defaultVelX;
 
       if (this.vel.x > this.inertia) {
