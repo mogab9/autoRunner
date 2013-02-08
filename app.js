@@ -10,10 +10,11 @@
 
 var jsApp = {
 
-    width:  640,
-    height: 480,
-    score:  0,
-    debug:  false,
+    width:       640,
+    height:      480,
+    score:       0,
+    debug:       false,
+    scrollspeed: 2,
 
     onload: function () {
       if (!me.video.init('jsapp', this.width, this.height, false, 1.0)) {
@@ -54,18 +55,28 @@ var jsApp = {
 /* in game stuff */
 var PlayScreen = me.ScreenObject.extend({
 
+  autoScrollTimer : null,
+
+  beginAutoscroll: function () {
+    var cpt = 0;
+    this.autoScrollTimer = setInterval(function () {
+      me.game.viewport.move(cpt + jsApp.scrollspeed, me.game.viewport.pos.y);
+    }, 20);
+  },
+
   onResetEvent: function () {
     jsApp.score = 0;
-
     me.levelDirector.loadLevel("area00");
 
     me.game.addHUD(0, 430, 640, 60);
     me.game.HUD.addItem("score", new ScoreObject(620, 10));
+    this.beginAutoscroll();
     me.game.sort();
   },
 
   onDestroyEvent: function () {
     me.game.disableHUD();
+    clearInterval(this.autoScrollTimer);
   }
 });
 

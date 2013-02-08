@@ -22,15 +22,15 @@ var PlayerEntity = me.ObjectEntity.extend({
     this.updateColRect(5, 25, -1, 32);
 
     // set the display to follow our position on both axis
-    me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
+    //me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
 
     this.initialPosX = Math.floor(this.pos.x);
   },
 
   // update the player pos
   update: function () {
-    // player dead by falling below the game height
-    if (this.pos.y > jsApp.height) {
+    // player dead by falling or by exiting the viewport
+    if (this.pos.y > jsApp.height || this.visible === false) {
       me.state.change(me.state.MENU);
       return false;
     }
