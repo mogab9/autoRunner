@@ -3,7 +3,7 @@
 var PlayerEntity = me.ObjectEntity.extend({
 
   initialPosX: 0,
-  defaultVelX: 3,
+  defaultVelX: 1.6,
   defaultGrav: 0.98,
   maxVelX:     5.5,
   maxVelY:     8.6,
@@ -49,7 +49,9 @@ var PlayerEntity = me.ObjectEntity.extend({
       }
     } else {
       // stopping player by taking into account player's inertia
+      this.vel.x += this.accel.x * me.timer.tick;
       this.maxVel.x = this.defaultVelX;
+
       if (this.vel.x > this.inertia) {
         this.vel.x -= 0.2;
       } else if (this.vel.x < -this.inertia) {
