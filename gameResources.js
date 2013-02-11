@@ -45,4 +45,9 @@ var gameResources = [
       name: "32x32_font",
       type: "image",
       src: "data/sprite/32x32_font.png"
+    },
+    {
+      name: "player_sprite",
+      type: "image",
+      src: "data/sprite/player_sprite.jpg"
     }];

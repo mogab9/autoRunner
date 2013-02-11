@@ -60,7 +60,7 @@
  <objectgroup name="Entities" width="200" height="30">
   <object name="mainPlayer" x="48" y="144" width="16" height="16">
    <properties>
-    <property name="image" value="gripe_run_right"/>
+    <property name="image" value="player_sprite"/>
     <property name="spritewidth" value="32"/>
    </properties>
   </object>
