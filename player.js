@@ -29,6 +29,8 @@ var PlayerEntity = me.ObjectEntity.extend({
 
   // update the player pos
   update: function () {
+  	//player sprite animation speed
+  	this.animationspeed = 0.95;
     // player dead by falling or by exiting the viewport
     if (this.pos.y > jsApp.height || this.visible === false) {
       me.state.change(me.state.MENU);
