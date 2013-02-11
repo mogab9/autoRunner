@@ -49,5 +49,5 @@ var gameResources = [
     {
       name: "player_sprite",
       type: "image",
-      src: "data/sprite/player_sprite.jpg"
+      src: "data/sprite/player_sprite.png"
     }];
