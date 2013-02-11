@@ -62,6 +62,7 @@
    <properties>
     <property name="image" value="player_sprite"/>
     <property name="spritewidth" value="32"/>
+    <property name="transparent_color" value="2aff00"/>
    </properties>
   </object>
   <object name="springBoard" x="607" y="187" width="16" height="16">
