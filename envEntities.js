@@ -91,6 +91,28 @@ var EnemyEntity = me.ObjectEntity.extend({
   }
 });
 
+var StalagmiteEntity = me.ObjectEntity.extend({
+  init: function (x, y, settings) {
+    settings.image = "stalagmite";
+    settings.spritewidth = 16;
+
+    this.parent(x, y, settings);
+    this.collidable = true;
+    this.type = me.game.ENEMY_OBJECT;
+  },
+
+  onCollision: function (res, obj) {
+    if (this.alive && (res.y > 0)) {
+      me.state.change(me.state.MENU);
+      return false;
+    }
+  },
+
+  update: function () {
+    return false;
+  }
+});
+
 var SpringboardEntity = me.ObjectEntity.extend({
   player:      null,
   jumpTimer:   null,

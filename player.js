@@ -29,10 +29,11 @@ var PlayerEntity = me.ObjectEntity.extend({
 
   // update the player pos
   update: function () {
-  	//player sprite animation speed
-  	this.animationspeed = 0.95;
+    //player sprite animation speed
+    this.animationspeed = 0.95;
     // player dead by falling or by exiting the viewport
     if (this.pos.y > jsApp.height || this.visible === false) {
+      this.alive = false;
       me.state.change(me.state.MENU);
       return false;
     }
@@ -89,6 +90,11 @@ var PlayerEntity = me.ObjectEntity.extend({
     if (res) {
       // if we collide with an enemy
       if (res.obj.type === me.game.ENEMY_OBJECT) {
+        // check if it's a deadly oneshot enemy
+        if (res.obj.name === 'stalagmite') {
+          me.state.change(me.state.MENU);
+          return false;
+        }
         // check if we jumped on it
         if ((res.y > 0) && !this.jumping) {
           // bounce (force jump)
