@@ -58,7 +58,7 @@
   </data>
  </layer>
  <objectgroup name="Entities" width="200" height="30">
-  <object name="mainPlayer" x="48" y="144" width="16" height="16">
+  <object name="mainPlayer" x="96" y="144" width="16" height="16">
    <properties>
     <property name="image" value="player_sprite"/>
     <property name="spritewidth" value="32"/>
@@ -81,8 +81,7 @@
     <property name="walk" value="left"/>
    </properties>
   </object>
-  <object x="823" y="84" height="15"/>
-  <object name="bird" x="850" y="89" width="16" height="16">
+  <object name="bird" x="880" y="133" width="16" height="16">
    <properties>
     <property name="walk" value="left"/>
    </properties>

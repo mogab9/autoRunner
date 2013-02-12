@@ -9,7 +9,6 @@
 /*global me, alert, window, gameResources, TitleScreen, PlayScreen, ScoreObject, PlayerEntity, CoinEntity, EnemyEntity, SpringboardEntity, StalagmiteEntity, BirdEntity*/
 
 var jsApp = {
-
     width:       640,
     height:      480,
     score:       0,
@@ -63,7 +62,7 @@ var PlayScreen = me.ScreenObject.extend({
     var cpt = 0;
     this.autoScrollTimer = setInterval(function () {
       me.game.viewport.move(cpt + jsApp.scrollspeed, me.game.viewport.pos.y);
-    }, 20);
+    }, 10);
   },
 
   onResetEvent: function () {

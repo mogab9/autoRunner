@@ -3,10 +3,11 @@
 var PlayerEntity = me.ObjectEntity.extend({
 
   initialPosX: 0,
-  defaultVelX: 1.6,
+  defaultVelX: 3.25,
   defaultGrav: 0.98,
   maxVelX:     5.5,
   maxVelY:     8.6,
+  stepCpt:     0,
   inertia:     0.1,
 
   init: function (x, y, settings) {
@@ -19,7 +20,7 @@ var PlayerEntity = me.ObjectEntity.extend({
     this.setVelocity(this.defaultVelX, 10);
 
     // adjust the bounding box
-    this.updateColRect(5, 25, -1, 32);
+    this.updateColRect(0, 25, -1, -1);
 
     // set the display to follow our position on both axis
     //me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
@@ -37,32 +38,24 @@ var PlayerEntity = me.ObjectEntity.extend({
       me.state.change(me.state.MENU);
       return false;
     }
-
     // keyboard inputs
     if (me.input.isKeyPressed('left') || me.input.isKeyPressed('right')) {
-      if (me.input.isKeyPressed('left')) {
-        this.flipX(true);
+      // left
+      if (me.input.isKeyPressed('left') && this.stepCpt > -10) {
+        this.stepCpt--;
         this.vel.x -= this.accel.x * me.timer.tick;
-
-      } else if (me.input.isKeyPressed('right')) {
-        if (this.maxVel.x < this.maxVelX) {
-          this.maxVel.x += 0.1;
-        }
-        this.flipX(false);
+      // right
+      } else if (me.input.isKeyPressed('right') && this.stepCpt < 10) {
+        this.stepCpt++;
+        this.setVelocity(10, 10);
+        this.vel.x += this.accel.x * me.timer.tick;
+      } else {
+        this.setVelocity(this.defaultVelX, 10);
         this.vel.x += this.accel.x * me.timer.tick;
       }
     } else {
+      this.setVelocity(this.defaultVelX, 10);
       this.vel.x += this.accel.x * me.timer.tick;
-      // stopping player by taking into account player's inertia
-      this.maxVel.x = this.defaultVelX;
-
-      if (this.vel.x > this.inertia) {
-        this.vel.x -= 0.2;
-      } else if (this.vel.x < -this.inertia) {
-        this.vel.x += 0.2;
-      } else {
-        this.vel.x = 0;
-      }
     }
 
     // update score
