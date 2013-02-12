@@ -71,6 +71,22 @@
    </properties>
   </object>
   <object name="stalagmite" x="960" y="176" width="16" height="16"/>
+  <object name="bird" x="784" y="80" width="16" height="16">
+   <properties>
+    <property name="walk" value="left"/>
+   </properties>
+  </object>
+  <object name="bird" x="811" y="77" width="16" height="16">
+   <properties>
+    <property name="walk" value="left"/>
+   </properties>
+  </object>
+  <object x="823" y="84" height="15"/>
+  <object name="bird" x="850" y="89" width="16" height="16">
+   <properties>
+    <property name="walk" value="left"/>
+   </properties>
+  </object>
  </objectgroup>
  <layer name="collision" width="200" height="30">
   <data encoding="base64">

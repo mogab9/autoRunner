@@ -42,6 +42,11 @@ var gameResources = [
       src: "data/sprite/stalagmite16x16.png"
     },
     {
+      name: "bird",
+      type: "image",
+      src: "data/sprite/bird32x32.png"
+    },
+    {
       name: "title_screen",
       type: "image",
       src: "data/GUI/title_screen.png"

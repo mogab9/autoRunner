@@ -92,6 +92,7 @@ var PlayerEntity = me.ObjectEntity.extend({
       if (res.obj.type === me.game.ENEMY_OBJECT) {
         // check if it's a deadly oneshot enemy
         if (res.obj.name === 'stalagmite') {
+          this.alive = false;
           me.state.change(me.state.MENU);
           return false;
         }

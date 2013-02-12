@@ -113,6 +113,70 @@ var StalagmiteEntity = me.ObjectEntity.extend({
   }
 });
 
+var BirdEntity = me.ObjectEntity.extend({
+  player: null,
+
+  init: function (x, y, settings) {
+    settings.image = "bird";
+    settings.spritewidth = 32;
+    this.player = me.game.getEntityByName('mainPlayer')[0];
+
+    if (settings.walk === 'left') {
+      this.walkLeft = true;
+    } else {
+      this.walkLeft = false;
+    }
+
+    // call the parent constructor
+    this.parent(x, y, settings);
+
+    this.startX = x;
+    this.endX   = x + settings.width - settings.spritewidth;
+    this.pos.x  = x + settings.width - settings.spritewidth;
+
+    this.setVelocity(2, 6);
+
+    this.collidable = true;
+    this.type = me.game.ENEMY_OBJECT;
+  },
+
+  onCollision: function (res, obj) {
+    if (this.alive && obj.name === 'mainplayer') {
+      this.player.alive = false;
+      me.state.change(me.state.MENU);
+      return false;
+    }
+  },
+
+  // manage the enemy movement
+  update: function () {
+    // do nothing if not visible
+    if (!this.visible) {
+      return false;
+    }
+
+    if (this.alive) {
+      // make it walk
+      this.flipX(this.walkLeft);
+      this.vel.x += (this.walkLeft) ? -this.accel.x * me.timer.tick : this.accel.x * me.timer.tick;
+    } else {
+      this.vel.x = 0;
+    }
+
+    // check and update movement
+    this.gravity = 0.001;
+    this.updateMovement();
+
+    // update animation if necessary
+    if (this.vel.x !== 0 || this.vel.y !== 0) {
+      // update objet animation
+      this.parent(this);
+      return true;
+    }
+    return false;
+  }
+});
+
 var SpringboardEntity = me.ObjectEntity.extend({
   player:      null,
   jumpTimer:   null,
