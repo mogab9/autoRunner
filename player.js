@@ -2,13 +2,13 @@
 
 var PlayerEntity = me.ObjectEntity.extend({
 
-  initialPosX: 0,
-  defaultVelX: 3.25,
-  defaultGrav: 0.98,
-  maxVelX:     5.5,
-  maxVelY:     8.6,
-  stepCpt:     0,
-  inertia:     0.1,
+  initialPosX:    0,
+  defaultVelX:    3.25,
+  defaultGrav:    0.98,
+  maxVelX:        5.5,
+  maxVelY:        8.6,
+  stepCpt:        0,
+  inertia:        0.1,
 
   init: function (x, y, settings) {
     this.parent(x, y, settings);
@@ -32,12 +32,19 @@ var PlayerEntity = me.ObjectEntity.extend({
   update: function () {
     //player sprite animation speed
     this.animationspeed = 0.95;
+
     // player dead by falling or by exiting the viewport
     if (this.pos.y > jsApp.height || this.visible === false) {
       this.alive = false;
       me.state.change(me.state.MENU);
       return false;
     }
+
+    // if player is stuck by his environnement we let him move
+    if (this.vel.x === 0) {
+      this.stepCpt = 0;
+    }
+
     // keyboard inputs
     if (me.input.isKeyPressed('left') || me.input.isKeyPressed('right')) {
       // left
