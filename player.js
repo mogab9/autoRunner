@@ -34,10 +34,12 @@ var PlayerEntity = me.ObjectEntity.extend({
   maxVelX:         5.5,
   maxVelY:         8.6,
   inertia:         0.1,
+  animspeed:       0.8,
 
   init: function (x, y, settings) {
     this.parent(x, y, settings);
     this.collidable = true;
+    this.current.animationspeed = this.animspeed;
 
     if (jsApp.debug) {
       me.debug.renderHitBox = true;
@@ -61,7 +63,6 @@ var PlayerEntity = me.ObjectEntity.extend({
   update: function () {
     var i = 0;
     var res = null;
-    this.animationspeed = 0.95;
     this.tickBeforeDeath--;
 
     // player dead by falling or by exiting the viewport
@@ -78,9 +79,6 @@ var PlayerEntity = me.ObjectEntity.extend({
       // right
       } else if (me.input.isKeyPressed('right')) {
         this.setVelocity(10, 10);
-        this.vel.x += this.accel.x * me.timer.tick;
-      } else {
-        this.setVelocity(this.defaultVelX, 10);
         this.vel.x += this.accel.x * me.timer.tick;
       }
     } else {
