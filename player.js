@@ -37,6 +37,7 @@ var PlayerEntity = me.ObjectEntity.extend({
 
   init: function (x, y, settings) {
     this.parent(x, y, settings);
+    this.collidable = true;
 
     if (jsApp.debug) {
       me.debug.renderHitBox = true;
@@ -58,6 +59,8 @@ var PlayerEntity = me.ObjectEntity.extend({
 
   // update the player pos
   update: function () {
+    var i = 0;
+    var res = null;
     this.animationspeed = 0.95;
     this.tickBeforeDeath--;
 
@@ -95,8 +98,6 @@ var PlayerEntity = me.ObjectEntity.extend({
     // jump listener
     if (me.input.isKeyPressed('jump')) {
       if (!this.jumping && !this.falling && this.vel.y >= 0) {
-        // set current vel to the maximum defined value
-        // gravity will then do the rest
         this.vel.y = -this.maxVel.y * me.timer.tick;
         this.jumping = true;
       }
@@ -105,7 +106,13 @@ var PlayerEntity = me.ObjectEntity.extend({
     this.updateMovement();
 
     // check for collision
-    me.game.collide(this, true);
+    res = me.game.collide(this, true);
+    for (i = 0; i < res.length; i++) {
+      // if mainPlayer collides with an ennemy he dies
+      if (res[i].obj.type === me.game.ENEMY_OBJECT) {
+        this.death();
+      }
+    }
 
     // update animation if necessary
     if (this.vel.x !== 0 || this.vel.y !== 0) {

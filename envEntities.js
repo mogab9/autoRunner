@@ -114,13 +114,11 @@ var StalagmiteEntity = me.ObjectEntity.extend({
 });
 
 var BirdEntity = me.ObjectEntity.extend({
-  player: null,
 
   init: function (x, y, settings) {
     settings.image = "bird";
     settings.spritewidth = 32;
     this.type = me.game.ENEMY_OBJECT;
-    this.player = me.game.getEntityByName('mainPlayer')[0];
 
     if (settings.walk === 'left') {
       this.walkLeft = true;
@@ -139,14 +137,6 @@ var BirdEntity = me.ObjectEntity.extend({
 
     this.collidable = true;
     this.type = me.game.ENEMY_OBJECT;
-  },
-
-  onCollision: function (res, obj) {
-    if (this.alive && obj.name === 'mainplayer') {
-      this.player.alive = false;
-      me.state.change(me.state.MENU);
-      return false;
-    }
   },
 
   // manage the enemy movement
@@ -187,6 +177,7 @@ var SpringboardEntity = me.ObjectEntity.extend({
     // call the parent constructor
     this.parent(x, y, settings);
     this.collidable = true;
+    this.type = me.game.ACTION_OBJECT;
     this.player = me.game.getEntityByName('mainPlayer')[0];
   },
 
