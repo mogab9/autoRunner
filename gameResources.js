@@ -60,4 +60,9 @@ var gameResources = [
       name: "player_sprite",
       type: "image",
       src: "data/sprite/player_sprite.png"
+    },
+    {
+      name: "forcefield",
+      type: "image",
+      src: "data/sprite/forcefield.png"
     }];

@@ -119,6 +119,7 @@ var BirdEntity = me.ObjectEntity.extend({
   init: function (x, y, settings) {
     settings.image = "bird";
     settings.spritewidth = 32;
+    this.type = me.game.ENEMY_OBJECT;
     this.player = me.game.getEntityByName('mainPlayer')[0];
 
     if (settings.walk === 'left') {

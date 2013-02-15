@@ -6,7 +6,7 @@
  * @author mogab9
 */
 
-/*global me, alert, window, gameResources, TitleScreen, PlayScreen, ScoreObject, PlayerEntity, CoinEntity, EnemyEntity, SpringboardEntity, StalagmiteEntity, BirdEntity*/
+/*global me, alert, window, gameResources, TitleScreen, PlayScreen, ScoreObject, PlayerEntity, CoinEntity, EnemyEntity, SpringboardEntity, StalagmiteEntity, BirdEntity, forcefieldEntity, ScrollingBackgroundLayer*/
 
 var jsApp = {
     width:       640,
@@ -37,6 +37,7 @@ var jsApp = {
 
       // add our entities in the entity pool
       me.entityPool.add("mainPlayer",  PlayerEntity);
+      me.entityPool.add("forceField",  forcefieldEntity);
       me.entityPool.add("CoinEntity",  CoinEntity);
       me.entityPool.add("EnemyEntity", EnemyEntity);
       me.entityPool.add("springBoard", SpringboardEntity);
@@ -68,6 +69,8 @@ var PlayScreen = me.ScreenObject.extend({
   onResetEvent: function () {
     jsApp.score = 0;
     me.levelDirector.loadLevel("area00");
+    me.game.add(new ScrollingBackgroundLayer("area00_bkg0", 0), -2);
+    me.game.add(new ScrollingBackgroundLayer("area00_bkg1", 1), -1);
 
     me.game.addHUD(0, 430, 640, 60);
     me.game.HUD.addItem("score", new ScoreObject(620, 10));

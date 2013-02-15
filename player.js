@@ -1,14 +1,39 @@
-/*global me, jsApp*/
+/*global me, jsApp, forcefield*/
+
+var forcefieldEntity = me.ObjectEntity.extend({
+  player: null,
+  speed:  3.22,
+
+  init: function (x, y, settings) {
+    this.parent(x, y, settings);
+    this.collidable = true;
+    this.player = me.game.getEntityByName('mainPlayer')[0];
+    this.pos.x  = this.player.pos.x;
+    this.pos.y  = this.player.pos.y - 25;
+  },
+
+  update: function () {
+    this.pos.x = this.pos.x + this.speed;
+    this.pos.y = this.player.pos.y - 25;
+  },
+
+  onCollision: function (res, obj) {
+    // reset death counter for player
+    if (this.alive && obj.name === 'mainplayer') {
+      this.player.tickBeforeDeath = 10;
+    }
+  }
+});
 
 var PlayerEntity = me.ObjectEntity.extend({
 
-  initialPosX:    0,
-  defaultVelX:    3.25,
-  defaultGrav:    0.98,
-  maxVelX:        5.5,
-  maxVelY:        8.6,
-  stepCpt:        0,
-  inertia:        0.1,
+  tickBeforeDeath: 10,
+  initialPosX:     0,
+  defaultVelX:     3.25,
+  defaultGrav:     0.98,
+  maxVelX:         5.5,
+  maxVelY:         8.6,
+  inertia:         0.1,
 
   init: function (x, y, settings) {
     this.parent(x, y, settings);
@@ -22,38 +47,33 @@ var PlayerEntity = me.ObjectEntity.extend({
     // adjust the bounding box
     this.updateColRect(0, 25, -1, -1);
 
-    // set the display to follow our position on both axis
-    //me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
-
     this.initialPosX = Math.floor(this.pos.x);
+  },
+
+  death: function () {
+    this.alive = false;
+    me.state.change(me.state.MENU);
+    return false;
   },
 
   // update the player pos
   update: function () {
-    //player sprite animation speed
     this.animationspeed = 0.95;
+    this.tickBeforeDeath--;
 
     // player dead by falling or by exiting the viewport
-    if (this.pos.y > jsApp.height || this.visible === false) {
-      this.alive = false;
-      me.state.change(me.state.MENU);
+    if (this.pos.y > jsApp.height || this.visible === false || this.tickBeforeDeath <= 0) {
+      this.death();
       return false;
-    }
-
-    // if player is stuck by his environnement we let him move
-    if (this.vel.x === 0) {
-      this.stepCpt = 0;
     }
 
     // keyboard inputs
     if (me.input.isKeyPressed('left') || me.input.isKeyPressed('right')) {
       // left
-      if (me.input.isKeyPressed('left') && this.stepCpt > -10) {
-        this.stepCpt--;
+      if (me.input.isKeyPressed('left')) {
         this.vel.x -= this.accel.x * me.timer.tick;
       // right
-      } else if (me.input.isKeyPressed('right') && this.stepCpt < 10) {
-        this.stepCpt++;
+      } else if (me.input.isKeyPressed('right')) {
         this.setVelocity(10, 10);
         this.vel.x += this.accel.x * me.timer.tick;
       } else {
@@ -85,31 +105,7 @@ var PlayerEntity = me.ObjectEntity.extend({
     this.updateMovement();
 
     // check for collision
-    var res = me.game.collide(this);
-
-    if (res) {
-      // if we collide with an enemy
-      if (res.obj.type === me.game.ENEMY_OBJECT) {
-        // check if it's a deadly oneshot enemy
-        if (res.obj.name === 'stalagmite') {
-          this.alive = false;
-          me.state.change(me.state.MENU);
-          return false;
-        }
-        // check if we jumped on it
-        if ((res.y > 0) && !this.jumping) {
-          // bounce (force jump)
-          this.falling = false;
-          this.vel.y = -this.maxVel.y * me.timer.tick;
-          // set the jumping flag
-          this.jumping = true;
-
-        } else {
-          // let's flicker in case we touched an enemy
-          this.flicker(45);
-        }
-      }
-    }
+    me.game.collide(this, true);
 
     // update animation if necessary
     if (this.vel.x !== 0 || this.vel.y !== 0) {
