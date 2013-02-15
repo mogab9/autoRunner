@@ -102,9 +102,8 @@ var StalagmiteEntity = me.ObjectEntity.extend({
   },
 
   onCollision: function (res, obj) {
-    if (this.alive && (res.y > 0)) {
-      me.state.change(me.state.MENU);
-      return false;
+    if (this.alive && (res.y > 0) && typeof obj.death() === 'function') {
+      obj.death();
     }
   },
 

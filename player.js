@@ -9,7 +9,6 @@ var forcefieldEntity = me.ObjectEntity.extend({
     this.collidable = true;
     this.player = me.game.getEntityByName('mainPlayer')[0];
     this.pos.x  = this.player.pos.x;
-    this.pos.y  = this.player.pos.y - 25;
   },
 
   update: function () {
