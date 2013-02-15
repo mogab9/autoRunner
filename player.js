@@ -7,6 +7,7 @@ var forcefieldEntity = me.ObjectEntity.extend({
   init: function (x, y, settings) {
     this.parent(x, y, settings);
     this.collidable = true;
+    this.updateColRect(-5, 110, 0, 100);
     this.player = me.game.getEntityByName('mainPlayer')[0];
     this.pos.x  = this.player.pos.x;
   },
