@@ -12,7 +12,7 @@ var jsApp = {
   width:       640,
   height:      480,
   score:       0,
-  debug:       true,
+  debug:       false,
   scrollspeed: 2,
 
   onload: function () {
