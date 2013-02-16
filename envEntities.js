@@ -7,14 +7,21 @@ var CoinEntity = me.CollectableEntity.extend({
   // extending the init function is not mandatory
   // unless you need to add some extra initialization
   init: function (x, y, settings) {
-    // call the parent constructor
+    settings.image = "spinning_coin_gold";
+    settings.spritewidth = 32;
+
     this.parent(x, y, settings);
   },
 
   // this function is called by the engine, when
   // an object is touched by something (here collected)
-  onCollision: function () {
+  onCollision: function (res, obj) {
+    if (obj.name === 'mainplayer') {
+      me.game.getEntityByName('forcefield')[0].grow();
+    }
     // do something when collected
+    this.collidable = false;
+    me.game.remove(this);
   }
 
 });

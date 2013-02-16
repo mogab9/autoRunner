@@ -9,50 +9,50 @@
 /*global me, alert, window, gameResources, TitleScreen, PlayScreen, ScoreObject, PlayerEntity, CoinEntity, EnemyEntity, SpringboardEntity, StalagmiteEntity, BirdEntity, forcefieldEntity, ScrollingBackgroundLayer*/
 
 var jsApp = {
-    width:       640,
-    height:      480,
-    score:       0,
-    debug:       false,
-    scrollspeed: 2,
+  width:       640,
+  height:      480,
+  score:       0,
+  debug:       true,
+  scrollspeed: 2,
 
-    onload: function () {
-      if (!me.video.init('jsapp', this.width, this.height, false, 1.0)) {
-        alert("Sorry but your browser does not support html 5 canvas.");
-        return;
-      }
-
-      me.audio.init("mp3,ogg");
-      me.loader.onload = this.loaded.bind(this);
-      me.loader.preload(gameResources);
-
-      me.state.change(me.state.LOADING);
-    },
-
-    loaded: function () {
-      me.state.set(me.state.MENU, new TitleScreen());
-      me.state.set(me.state.PLAY, new PlayScreen());
-
-      // set a global fading transition for the screen
-      me.state.transition("fade", "#FFFFFF", 250);
-
-      // add our entities in the entity pool
-      me.entityPool.add("mainPlayer",  PlayerEntity);
-      me.entityPool.add("forceField",  forcefieldEntity);
-      me.entityPool.add("CoinEntity",  CoinEntity);
-      me.entityPool.add("EnemyEntity", EnemyEntity);
-      me.entityPool.add("springBoard", SpringboardEntity);
-      me.entityPool.add("stalagmite",  StalagmiteEntity);
-      me.entityPool.add("bird",        BirdEntity);
-
-      // enable the keyboard
-      me.input.bindKey(me.input.KEY.X,     "jump", true);
-      me.input.bindKey(me.input.KEY.LEFT,  "left");
-      me.input.bindKey(me.input.KEY.RIGHT, "right");
-
-      // start the game
-      me.state.change(me.state.MENU);
+  onload: function () {
+    if (!me.video.init('jsapp', this.width, this.height, false, 1.0)) {
+      alert("Sorry but your browser does not support html 5 canvas.");
+      return;
     }
-  };
+
+    me.audio.init("mp3,ogg");
+    me.loader.onload = this.loaded.bind(this);
+    me.loader.preload(gameResources);
+
+    me.state.change(me.state.LOADING);
+  },
+
+  loaded: function () {
+    me.state.set(me.state.MENU, new TitleScreen());
+    me.state.set(me.state.PLAY, new PlayScreen());
+
+    // set a global fading transition for the screen
+    me.state.transition("fade", "#FFFFFF", 250);
+
+    // add our entities in the entity pool
+    me.entityPool.add("forceField",  forcefieldEntity);
+    me.entityPool.add("mainPlayer",  PlayerEntity);
+    me.entityPool.add("CoinEntity",  CoinEntity);
+    me.entityPool.add("EnemyEntity", EnemyEntity);
+    me.entityPool.add("springBoard", SpringboardEntity);
+    me.entityPool.add("stalagmite",  StalagmiteEntity);
+    me.entityPool.add("bird",        BirdEntity);
+
+    // enable the keyboard
+    me.input.bindKey(me.input.KEY.X,     "jump", true);
+    me.input.bindKey(me.input.KEY.LEFT,  "left");
+    me.input.bindKey(me.input.KEY.RIGHT, "right");
+
+    // start the game
+    me.state.change(me.state.MENU);
+  }
+};
 
 /* in game stuff */
 var PlayScreen = me.ScreenObject.extend({

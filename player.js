@@ -12,6 +12,16 @@ var forcefieldEntity = me.ObjectEntity.extend({
     this.pos.x  = this.player.pos.x;
   },
 
+  grow: function () {
+    this.resize(2);
+    this.updateColRect(-52, 210, -52, 200);
+  },
+
+  ungrow: function () {
+    this.resize(1);
+    this.updateColRect(-5, 110, -5, 100);
+  },
+
   update: function () {
     this.pos.x = this.pos.x + this.speed;
     this.pos.y = this.player.pos.y - 25;

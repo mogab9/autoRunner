@@ -84,6 +84,12 @@
     <property name="tilewidth" value="100"/>
    </properties>
   </object>
+  <object name="CoinEntity" x="336" y="128" width="16" height="16">
+   <properties>
+    <property name="image" value="spinning_coin_gold"/>
+    <property name="imagewidth" value="32"/>
+   </properties>
+  </object>
  </objectgroup>
  <layer name="collision" width="200" height="30">
   <data encoding="base64">
